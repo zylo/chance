@@ -1,6 +1,7 @@
 'use strict';
 
 const winston = require('winston');
+
 const loggingLevel = 'debug';
 const logFile = './logs/all-logs.log';
 const fs = require('fs');

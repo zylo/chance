@@ -11,4 +11,4 @@ function buildCharges(req, res) {
 
 module.exports = {
   buildCharges: buildCharges
-}
+};

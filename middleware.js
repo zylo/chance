@@ -8,7 +8,7 @@ const swaggerMetadata = require('swagger-tools/middleware/swagger-metadata');
 const swaggerRouter = require('swagger-tools/middleware/swagger-router');
 const swaggerValidator = require('swagger-tools/middleware/swagger-validator');
 
-const beforeSwagger = function (app, db) {
+const beforeSwagger = function (app) {
   app.use(helmet());
 
   app.use(bodyParser.json({
@@ -16,8 +16,6 @@ const beforeSwagger = function (app, db) {
   }));
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(cors({ maxAge: 600 }));
-
-  // assignRequestProps(app, db);
 };
 
 const afterSwagger = function (app, swagger) {
@@ -28,15 +26,7 @@ const afterSwagger = function (app, swagger) {
 
   // Puts the `swagger` on req
   app.use(swaggerMetadata(swagger));
-
-
-  // app.use(routeLogging);
-  // app.use(authorization);
-
   app.use(swaggerValidator());
-
-  // app.use(nullParser);
-  // app.use(errorHandler);
 
   app.use(swaggerRouter(options));
   if (process.env.NODE_ENV === 'development') app.use(swaggerUi(swagger));

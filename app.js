@@ -8,10 +8,10 @@ const express = require('express');
 
 const app = express();
 const port = '4000';
-const db = {};
+// const db = {};
 process.env.NODE_ENV = 'development';
 
-middleware.beforeSwagger(app, db);
+middleware.beforeSwagger(app);
 
 swaggerParser.validate('./api/swagger/swagger.yaml', (err, api) => {
   if (err) throw err;

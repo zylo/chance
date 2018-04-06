@@ -6,4 +6,4 @@ function buildCharges(db, cb) {
 
 module.exports = {
   buildCharges: buildCharges
-}
+};
