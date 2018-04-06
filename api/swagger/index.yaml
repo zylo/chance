@@ -7,7 +7,6 @@ host: localhost:4000
 # basePath prefixes all resource paths
 basePath: /
 #
-tags:
 schemes:
   # tip: remove http to make production-grade
   - http

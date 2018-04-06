@@ -4,7 +4,6 @@ info:
   title: chance api
 host: 'localhost:4000'
 basePath: /
-tags: null
 schemes:
   - http
   - https
@@ -13,6 +12,45 @@ consumes:
 produces:
   - application/json
 paths:
-  $ref: ./paths/index.yaml
+  /charges/build:
+    x-swagger-router-controller: chargeController
+    get:
+      description: Builds sample charge file for import
+      operationId: buildCharges
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/SuccessResponse'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/ErrorResponse'
 definitions:
-  $ref: ./definitions/index.yaml
+  ErrorResponse:
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+  SuccessResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
