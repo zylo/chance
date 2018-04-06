@@ -1,0 +1,18 @@
+swagger: '2.0'
+info:
+  version: 0.0.6
+  title: chance api
+host: 'localhost:4000'
+basePath: /
+tags: null
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  $ref: ./paths/index.yaml
+definitions:
+  $ref: ./definitions/index.yaml
