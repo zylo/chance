@@ -1,0 +1,16 @@
+{
+  "name": "chance",
+  "version": "1.0.0",
+  "description": "starter project for engineering interviews",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zylo/chance.git"
+  },
+  "author": "Ryan Carroll",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zylo/chance/issues"
+  },
+  "homepage": "https://github.com/zylo/chance#readme"
+}
