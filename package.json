@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "description": "starter project for engineering interviews",
   "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "mergeSwagger": "node api/helpers/mergeSwagger.js",
+    "prestart": "npm run mergeSwagger",
+    "pretest": "npm run mergeSwagger",
+    "lint": "eslint . --ext .js || true"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zylo/chance.git"
@@ -12,5 +19,23 @@
   "bugs": {
     "url": "https://github.com/zylo/chance/issues"
   },
-  "homepage": "https://github.com/zylo/chance#readme"
+  "homepage": "https://github.com/zylo/chance#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "helmet": "^3.12.0",
+    "js-yaml": "^3.11.0",
+    "json-refs": "^3.0.4",
+    "swagger-parser": "^4.0.2",
+    "swagger-tools": "^0.10.3",
+    "winston": "^2.4.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.10.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0"
+  }
 }

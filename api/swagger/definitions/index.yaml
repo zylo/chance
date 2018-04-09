@@ -1,0 +1,4 @@
+ErrorResponse:
+  $ref: ./ErrorResponse.yaml
+SuccessResponse:
+  $ref: ./SuccessResponse.yaml

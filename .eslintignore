@@ -1,0 +1,6 @@
+node_modules/*
+coverage/*
+*.rmd
+*.json
+*.yaml
+Procfile
