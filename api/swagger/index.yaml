@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  version: "0.0.6"
+  version: "0.0.1"
   title: chance api
 # during dev, should point to your local machine
 host: localhost:4000
