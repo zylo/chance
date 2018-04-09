@@ -1,9 +1,9 @@
 'use strict';
 
-function buildCharges(db, cb) {
+function build(db, cb) {
   cb(null, 'success');
 }
 
 module.exports = {
-  buildCharges: buildCharges
+  build: build
 };
