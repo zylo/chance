@@ -6,6 +6,8 @@ We have created the basics on this API project to provide a starting point for o
 * Write test(s) to cover logic used to import file.
 * Build API endpoint to retrieve charge data from database, aggregate data and display in any format.
 
+*Feel free to make any speed or performance in the code too. We don't claim to be perfect.*
+
 
 ## Setup and best practices
 Here are a few tips to help speed setup of this project.
