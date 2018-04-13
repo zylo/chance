@@ -7,12 +7,10 @@ const chargeService = require('../services/chargeService');
  */
 function build(req, res) {
   chargeService.build(10, (err, message) => {
-    const statusCode = err ? 500 : 200;
-
-    if (statusCode === 500) {
-      res.status(statusCode).json(message).end();
+    if (err) {
+      res.status(400).json({ code: 400, message: err.message }).end();
     } else {
-      res.status(statusCode).json({ code: statusCode, message: message }).end();
+      res.status(200).json({ code: 200, message: message }).end();
     }
   });
 }

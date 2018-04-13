@@ -2,7 +2,7 @@
 We have created the basics on this API project to provide a starting point for our code challenge. This API uses common packages, frameworks, and style guides as our main API: **waterworks**. For this challenge we would like the candidate to complete as many as possible of the tasks listed below.
 
 * Modify swagger api endpoint to accept integer for number of charges to build.
-* Create Postgres database and table structure to store charge data.
+* Create Postgres database and table structure to store charge data, ideally more than 10,000 charges.
 * Write bin script to import charge file to database.
 * Write test(s) to cover logic used to import file.
 * Build API endpoint to retrieve charge data from database, aggregate data and display in any format.

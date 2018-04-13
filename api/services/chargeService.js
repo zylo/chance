@@ -29,7 +29,7 @@ function build(numCharges, cb) {
     fs.writeFileSync(chargeFile, JSON.stringify(charges));
     cb(null, 'Successfully created charge file.');
   } catch (e) {
-    cb('Failed to created charge file.');
+    cb(new Error('Failed to created charge file.'));
   }
 }
 
