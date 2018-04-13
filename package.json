@@ -8,7 +8,8 @@
     "mergeSwagger": "node api/helpers/mergeSwagger.js",
     "prestart": "npm run mergeSwagger",
     "pretest": "npm run mergeSwagger",
-    "lint": "eslint . --ext .js || true"
+    "lint": "eslint . --ext .js || true",
+    "test": "istanbul test node_modules/mocha/bin/_mocha"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,9 @@
   "bugs": {
     "url": "https://github.com/zylo/chance/issues"
   },
+  "engines": {
+    "node": "8.10.0"
+  },
   "homepage": "https://github.com/zylo/chance#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
@@ -27,6 +31,7 @@
     "helmet": "^3.12.0",
     "js-yaml": "^3.11.0",
     "json-refs": "^3.0.4",
+    "lodash": "^4.17.5",
     "swagger-parser": "^4.0.2",
     "swagger-tools": "^0.10.3",
     "winston": "^2.4.1"
@@ -36,6 +41,8 @@
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.10.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.7.0"
+    "eslint-plugin-react": "^7.7.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^5.1.0"
   }
 }
