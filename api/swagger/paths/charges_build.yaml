@@ -1,7 +1,7 @@
 x-swagger-router-controller: chargeController
 get:
   description: Builds sample charge file for import
-  operationId: buildCharges
+  operationId: build
   responses:
     '200':
       description: Success
