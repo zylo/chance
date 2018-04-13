@@ -19,7 +19,11 @@ npm install mocha -g
 * Code style is import, check your changes with `npm run lint`.
 
 
-
+## Postgres setup
+```
+createdb zylo_chance
+psql -d zylo_chance < db/ddl.sql
+```
 
 
 *PS: All Zylo projects are based off of Monopoly ecosystem.*
