@@ -7,7 +7,7 @@ const fs = require('fs');
 describe('chargeService', () => {
   describe('createCharge', () => {
     it('should validate that a charge is built', () => {
-      chargeService.createCharge((charge) => {
+      chargeService.createCharge('Salesforce CRM', (charge) => {
         assert.equal(charge.name, 'Salesforce CRM');
         assert.equal(!charge.amount, 0);
         assert.equal(charge.type, 'AP');
