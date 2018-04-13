@@ -14,11 +14,7 @@ process.on('uncaughtException', (err) => {
   process.exit(1);
 });
 
-const chargeFile = program.filename;
-
-if (!chargeFile) {
-  logger.error('filename required!');
-  process.exit(1);
-}
-
 // TODO import file to database
+// const chargeFile = program.filename;
+
+process.exit(0);
