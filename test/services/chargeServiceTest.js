@@ -18,7 +18,7 @@ describe('chargeService', () => {
   describe('build', () => {
     it('should fail to build if directory does not exist', () => {
       chargeService.build(10, (err) => {
-        assert.equal(err, 'Failed to created charge file.');
+        assert.equal(err, 'Error: Failed to created charge file.');
       });
     });
 
