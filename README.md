@@ -28,7 +28,7 @@ createdb zylo_chance
 psql -d zylo_chance < db/ddl.sql
 ```
 
-# Zylo stack
+## Zylo stack
 Here at Zylo most of out projects are built on Node + Postgres + React. Feel free to use the technologies that you are familiar with but those are our go to tools. Along with that we also use:
 
 * objection.js
