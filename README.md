@@ -29,4 +29,4 @@ psql -d zylo_chance < db/ddl.sql
 ```
 
 
-*PS: All Zylo projects are based off of Monopoly ecosystem.*
+*PS: All Zylo projects are named based on the board game Monopoly.*
