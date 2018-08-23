@@ -8,6 +8,6 @@ services:
     - /bin/sh
     - -c
     - |
-      yarn
-      yarn prestart
-      yarn start:debug
+      npm install
+      npm run prestart
+      npm run start:debug

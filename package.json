@@ -7,8 +7,8 @@
     "start": "node app.js",
     "start:debug": "nodemon --inspect app.js",
     "mergeSwagger": "node api/helpers/mergeSwagger.js",
-    "prestart": "yarn ready && yarn mergeSwagger",
-    "pretest": "yarn ready && yarn mergeSwagger",
+    "prestart": "npm run ready && npm run mergeSwagger",
+    "pretest": "npm run ready && npm run mergeSwagger",
     "lint": "eslint . --ext .js || true",
     "ready": "node bin/wait.js",
     "test": "istanbul test node_modules/mocha/bin/_mocha"
@@ -28,7 +28,7 @@
       "name": "Owen Mockler"
     }
   ],
-  "license": "proprietary",
+  "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/zylo/chance/issues"
   },
@@ -38,8 +38,6 @@
   "homepage": "https://github.com/zylo/chance#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
-    "chai": "^4.1.2",
-    "chai-http": "^4.0.0",
     "commander": "^2.15.1",
     "convict": "^4.2.0",
     "cors": "^2.8.4",
@@ -50,14 +48,13 @@
     "knex": "^0.14.6",
     "lodash": "^4.17.5",
     "moment": "^2.22.0",
-    "pg": "^7.4.1",
-    "sqlite3": "^4.0.0",
-    "swagger": "^0.7.5",
     "swagger-parser": "^4.0.2",
     "swagger-tools": "^0.10.3",
-    "winston": "^2.4.1"
+    "winston": "^2.4.1",
+    "pg": "7.4.3"
   },
   "devDependencies": {
+    "nodemon": "^1.18.3",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.10.0",

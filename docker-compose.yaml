@@ -12,18 +12,14 @@ services:
       - docker/config.env
       - docker/postgres/config.env
 
-
   node:
-    image: zylo-node
-    build:
-      dockerfile: ./docker/node/Dockerfile
-      context: ./
+    image: node
     depends_on:
       - postgres
     volumes:
       - .:/app
     ports:
-      - 80:4000
+      - 8080:4000
       - 56754:9229
     working_dir: /app
     env_file:
@@ -33,7 +29,7 @@ services:
       - /bin/sh
       - -c
       - |
-          yarn
-          yarn prestart
-          yarn start
+          npm install
+          npm run prestart
+          npm start
 
