@@ -1,14 +1,16 @@
 {
   "name": "chance",
   "version": "1.0.0",
-  "description": "starter project for engineering interviews",
+  "description": "Starter project for engineering interviews.",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
+    "start:debug": "nodemon --inspect app.js",
     "mergeSwagger": "node api/helpers/mergeSwagger.js",
-    "prestart": "npm run mergeSwagger",
-    "pretest": "npm run mergeSwagger",
+    "prestart": "npm run ready && npm run mergeSwagger",
+    "pretest": "npm run ready && npm run mergeSwagger",
     "lint": "eslint . --ext .js || true",
+    "ready": "node bin/wait.js",
     "test": "istanbul test node_modules/mocha/bin/_mocha"
   },
   "repository": {
@@ -16,7 +18,17 @@
     "url": "git+https://github.com/zylo/chance.git"
   },
   "author": "Ryan Carroll",
-  "license": "ISC",
+  "contributors": [
+    {
+      "email": "cordial@zylo.com",
+      "name": "Jason Cordial"
+    },
+    {
+      "email": "owen@zylo.com",
+      "name": "Owen Mockler"
+    }
+  ],
+  "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/zylo/chance/issues"
   },
@@ -27,18 +39,22 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "commander": "^2.15.1",
+    "convict": "^4.2.0",
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "helmet": "^3.12.0",
     "js-yaml": "^3.11.0",
     "json-refs": "^3.0.4",
+    "knex": "^0.14.6",
     "lodash": "^4.17.5",
     "moment": "^2.22.0",
     "swagger-parser": "^4.0.2",
     "swagger-tools": "^0.10.3",
-    "winston": "^2.4.1"
+    "winston": "^2.4.1",
+    "pg": "7.4.3"
   },
   "devDependencies": {
+    "nodemon": "^1.18.3",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.10.0",

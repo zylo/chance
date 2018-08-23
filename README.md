@@ -10,23 +10,53 @@ We have created the basics on this API project to provide a starting point for o
 *Feel free to make any speed or performance changes in the code too. We don't claim to be perfect.*
 
 
-## Setup and best practices
-Here are a few tips to help speed setup of this project.
+## Setup
+1. This project requires [Docker](https://www.docker.com/). If not already installed:
+    * [Install Docker for Mac](https://docs.docker.com/docker-for-mac/install/)
+    * [Install Docker for Windows](https://docs.docker.com/docker-for-windows/install/)
+    * [Install Docker on Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce/)
+    * Other Linux Distros: More likely than not, Docker is available on the package manager shipped with the distro.
+2. Ensure no instance of Postgres is running, and no server is running on port 8080. 
+3. From the project directory, in terminal run `docker-compose up`
+4. Wait for: 
+   ```
+   info: ===== Chance api has started on port: 4000 
+   info: ===== forwarded http://localhost:8080
+   ```
+   This could take up to a minute, we are install Postgres and Node, after all ;-) .
+5. Navigate to [http://localhost:8080](http://localhost:8080). It should say: `Hello, you!`. 
 
-* Install swagger, ESLint, mocha globally:
-```
-npm install swagger -g
-npm install eslint -g
-npm install mocha -g
-```
-* Code style is import, check your changes with `npm run lint`.
+You're ready to code!
 
+## Database
 
-## Postgres setup
+Postgress credentials are available in Node globally as environment variables:
+```javascript
+process.env.POSTGRES_USER // user
+process.env.POSTGRES_PASSWORD // password
+process.env.POSTGRES_DB // zylo_chance
+process.env.POSTGRES_HOST //postgres
 ```
-createdb zylo_chance
-psql -d zylo_chance < db/ddl.sql
-```
+If you would like to examine the content of the Postgress database, the Postgres database is available to the host 
+machine using the credentials:
+* Host: localhost
+* Username: user
+* Password: password
+* Database: zylo_chance
+
+## Testing
+
+Some tests have been pre-made for you using mocha. To run tests:
+
+`docker-compose run node npm run test`
+
+Be sure to test throughout the process to ensure quality code!
+
+## Best Practices
+
+Here are a few tips for this project.
+* Code style is import, check your changes with `docker-compose run node "npm run lint"`.
+* Test often. `docker-compose run node npm run test`
 
 ## Zylo stack
 Here at Zylo most of out projects are built on Node + Postgres + React. Feel free to use the technologies that you are familiar with but those are our go to tools. Along with that we also use:

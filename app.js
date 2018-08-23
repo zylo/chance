@@ -18,7 +18,12 @@ swaggerParser.validate('./api/swagger/swagger.yaml', (err, api) => {
   middleware.afterSwagger(app, api);
 
   app.listen(port);
-  logger.info(`chance api has started on port: ${port}`);
+  logger.info(`===== Chance api has started on port: ${port}`);
+  logger.info('===== forwarded http://localhost:8080');
+});
+
+app.get('/', (req, res) => {
+  res.send('Hello, you!');
 });
 
 module.exports = app;

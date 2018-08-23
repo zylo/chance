@@ -1,0 +1,37 @@
+version: '3'
+services:
+
+  postgres:
+    image: postgres
+    restart: always
+    volumes:
+      - ./docker/postgres/storage:/var/lib/postgresql/
+    expose:
+      - "5432"
+    ports:
+      - 54321:5432
+    env_file:
+      - docker/config.env
+      - docker/postgres/config.env
+
+  node:
+    image: node
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app
+    ports:
+      - 8080:4000
+      - 56754:9229
+    working_dir: /app
+    env_file:
+      - docker/config.env
+      - docker/node/config.env
+    command:
+      - /bin/sh
+      - -c
+      - |
+          npm install
+          npm run prestart
+          npm start
+
