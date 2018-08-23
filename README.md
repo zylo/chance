@@ -30,7 +30,19 @@ You're ready to code!
 
 ## Database
 
-Your Postgres 
+Postgress credentials are available in Node globally as environment variables:
+```javascript
+process.env.POSTGRES_USER // user
+process.env.POSTGRES_PASSWORD // password
+process.env.POSTGRES_DB // zylo_chance
+process.env.POSTGRES_HOST //postgres
+```
+If you would like to examine the content of the Postgress database, the Postgres database is available to the host 
+machine using the credentials:
+* Host: localhost
+* Username: user
+* Password: password
+* Database: zylo_chance
 
 ## Testing
 

@@ -8,6 +8,8 @@ services:
       - ./docker/postgres/storage:/var/lib/postgresql/
     expose:
       - "5432"
+    ports:
+      - 54321:5432
     env_file:
       - docker/config.env
       - docker/postgres/config.env
