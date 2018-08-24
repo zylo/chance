@@ -15,6 +15,7 @@ describe('chargeService', () => {
     });
   });
 
+  // TODO: modify this to take variable numCharges
   describe('build', () => {
     it('should fail to build if directory does not exist', () => {
       chargeService.build(10, (err) => {
