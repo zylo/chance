@@ -42,16 +42,18 @@
     "convict": "^4.2.0",
     "cors": "^2.8.4",
     "express": "^4.16.3",
+    "fs": "0.0.1-security",
     "helmet": "^3.12.0",
     "js-yaml": "^3.11.0",
     "json-refs": "^3.0.4",
     "knex": "^0.14.6",
     "lodash": "^4.17.5",
     "moment": "^2.22.0",
+    "pg": "7.4.3",
+    "pg-format": "^1.0.4",
     "swagger-parser": "^4.0.2",
     "swagger-tools": "^0.10.3",
-    "winston": "^2.4.1",
-    "pg": "7.4.3"
+    "winston": "^2.4.1"
   },
   "devDependencies": {
     "nodemon": "^1.18.3",

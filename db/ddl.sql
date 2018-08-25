@@ -14,7 +14,7 @@ CREATE TABLE projects (
 CREATE TYPE charge_type as enum('AP', 'Other');
 
 CREATE TABLE charges (
-  id uuid DEFAULT gen_random_uuid() NOT NULL,
+  id uuid DEFAULT gen_random_uuid(),
   amount INTEGER NOT NULL,
   date timestamp with time zone DEFAULT now(),
   name VARCHAR NOT NULL,
