@@ -28,9 +28,6 @@ if (!chargeFile) {
 const fileData = fs.readFileSync(chargeFile);  
 const jsonDataArray = JSON.parse(fileData);
 
-// appending a UUID to the data
-const uuidv4 = require('uuid/v4');
-jsonDataArray.map(charge => charge["id"] = uuidv4());
 
 const pool = new Pool({
   user: 'user',
@@ -41,7 +38,13 @@ const pool = new Pool({
 });
 
 // Generate the query 
-const formattedData = jsonDataArray.map(datum => Object.values(datum));
+// TODO: Reference this link for miss UUID on insert: https://node-postgres.com/features/types
+const uuidv4 = require('uuid/v4');
+const formattedData = jsonDataArray.map(charge => {
+  // appending a UUID to the data
+  charge["id"] = uuidv4(); 
+  return Object.values(charge)
+});
 const query = format('INSERT INTO charges(amount,date,name,description,type,id) Values %L', formattedData);
 
 // Execute the query 
@@ -51,4 +54,7 @@ pool.query(query)
     // we end the process because of successful insertion
     process.exit(0)
   })
-  .catch(err => console.error('Unexpected Error', err));
+  .catch(err => {
+    console.error('Unexpected Error', err)
+    process.exit(1)  
+  );
