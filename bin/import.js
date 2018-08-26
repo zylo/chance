@@ -5,11 +5,6 @@ const fs = require('fs');
 const { Pool } = require('pg')
 const format = require('pg-format');
 
-program
-  .option('-f, --filename <required>', 'filename required')
-  .version('1.1.0')
-  .parse(process.argv);
-
 const logger = require('../api/helpers/logger');
 
 process.on('uncaughtException', (err) => {
@@ -17,17 +12,35 @@ process.on('uncaughtException', (err) => {
   process.exit(1);
 });
 
-// Confirm the file flag was entered
-const chargeFile = program.filename; // Turn this on for testing: || 'temp/charges.json
-if (!chargeFile) {
-  logger.error('a filename is required with flag -f');
-  process.exit(1);
+/**
+ * Loads and parses charge data file
+ * 
+ * @param {string | null | undefined} fileName 
+ */
+function loadImportFile(fileName) {
+  let chargeFile;
+  if (!fileName) {
+    program
+      .option('-f, --filename <required>', 'filename required')
+      .version('1.1.0')
+      .parse(process.argv);
+    chargeFile = program.filename; // Can turn this on for testing: || 'temp/charges.json
+  } else {
+    chargeFile = fileName;
+  }
+  // Confirm the file flag was entered or fileName is not null
+  if (!chargeFile) {
+    logger.error('a filename is required with flag -f');
+    process.exit(1);
+  }
+  // Loading in the data from the file
+  try {
+    const fileData = fs.readFileSync(chargeFile);  
+    return JSON.parse(fileData);
+  } catch (error) {
+    return null;
+  }
 }
-
-// Loading in the data
-const fileData = fs.readFileSync(chargeFile);  
-const jsonDataArray = JSON.parse(fileData);
-
 
 const pool = new Pool({
   user: 'user',
@@ -37,24 +50,66 @@ const pool = new Pool({
   port: 54321
 });
 
-// Generate the query 
-// TODO: Reference this link for miss UUID on insert: https://node-postgres.com/features/types
 const uuidv4 = require('uuid/v4');
-const formattedData = jsonDataArray.map(charge => {
-  // appending a UUID to the data
-  charge["id"] = uuidv4(); 
-  return Object.values(charge)
-});
-const query = format('INSERT INTO charges(amount,date,name,description,type,id) Values %L', formattedData);
 
-// Execute the query 
-pool.query(query)
-  .then(queryResult => {
-    console.log(queryResult)
-    // we end the process because of successful insertion
-    process.exit(0)
-  })
-  .catch(err => {
-    console.error('Unexpected Error', err)
-    process.exit(1)  
-  );
+/**
+ * Appends a UUID to each charge
+ * 
+ * @param {Array<charge>} jsonArray 
+ */
+function formatData(jsonArray) {
+  const formattedData = jsonArray.map(charge => {
+    charge["id"] = uuidv4(); // appending a UUID to the data
+    return Object.values(charge) // return values as (values, ...) to be consumed by psql
+  });
+  return formattedData;
+}
+
+/**
+ * Generates a query from a set of charge data that include UUIDs 
+ * 
+ * @param {Array<charge>} formattedData 
+ */
+function generateQueryString(formattedData) {
+  const query = format('INSERT INTO charges(amount,date,name,description,type,id) Values %L', formattedData);
+  console.log(query)
+  return query;
+}
+
+/**
+ * The main entry point into the file
+ */
+function run() {
+  const fileData = loadImportFile();
+  const formattedData = formatData(fileData);
+  const query = generateQueryString(formattedData);
+  // Execute the query 
+  pool.query(query)
+    .then(queryResult => {
+      console.log(queryResult)
+      // we end the process because of successful insertion
+      process.exit(0)
+    })
+    .catch(err => {
+      console.error('Unexpected Error', err)
+      // we end the process because of an error
+      process.exit(1)  
+    });
+}
+
+/**
+ * Commented out for testing
+ * Uncomment this to be able to execute file
+ */
+// run();
+
+
+/**
+ * Exposed functions for testing
+ */
+module.exports = {
+  loadImportFile: loadImportFile,
+  formatData: formatData,
+  generateQueryString: generateQueryString,
+  run: run
+};
