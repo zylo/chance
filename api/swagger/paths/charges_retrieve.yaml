@@ -1,0 +1,27 @@
+x-swagger-router-controller: chargeController
+get:
+  description: Retrieves charge data from database table charges
+  operationId: retrieve
+  responses:
+    '200':
+      description: Success
+      schema:
+        type: array
+        items:
+          $ref: '#/definitions/Charge'
+    '400':
+      description: Bad Request
+      schema:
+        $ref: '#/definitions/ErrorResponse'
+    '401':
+      description: Unauthorized
+      schema:
+        $ref: '#/definitions/ErrorResponse'
+    '403':
+      description: Forbidden
+      schema:
+        $ref: '#/definitions/ErrorResponse'
+    default:
+      description: Error
+      schema:
+        $ref: '#/definitions/ErrorResponse'

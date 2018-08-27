@@ -3,6 +3,15 @@
 const _ = require('lodash');
 const fs = require('fs');
 const moment = require('moment');
+const { Pool } = require('pg')
+
+const pool = new Pool({
+  user: process.env.POSTGRES_USER || 'user',
+  host: process.env.POSTGRES_HOST || 'localhost',
+  database: process.env.POSTGRES_DB || 'zylo_chance',
+  password: process.env.POSTGRES_PASSWORD || 'password',
+  port: 54321
+});
 
 function createCharge(appName) {
   const chargeObj = {
@@ -33,7 +42,22 @@ function build(numCharges, cb) {
   }
 }
 
+function retrieve(cb) {
+  const query = {
+    text: 'SELECT * FROM charges'
+  };
+
+  pool.query(query)
+    .then(queryResult => {
+      cb(null, 'Successfully retrieved charge data', queryResult.rows);
+    })
+    .catch(err => {
+      cb(new Error(`Failed to load charge data, ${err}`));
+    });
+}
+
 module.exports = {
   build: build,
-  createCharge: createCharge
+  createCharge: createCharge,
+  retrieve: retrieve
 };

@@ -72,7 +72,6 @@ function formatData(jsonArray) {
  */
 function generateQueryString(formattedData) {
   const query = format('INSERT INTO charges(amount,date,name,description,type,id) Values %L', formattedData);
-  console.log(query)
   return query;
 }
 

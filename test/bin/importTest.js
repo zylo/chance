@@ -58,8 +58,8 @@ describe('import-script', () => {
           ('250', '2018-03-20T23:04:30+00:00', 'JIRA', 'Annual renewal for company licenses.', 'AP', \
           '0eddb50e-272a-4ca1-8534-dfa042acb63e'), ('750', '2018-07-18T23:04:30+00:00', 'GitHub', \
           'Annual renewal for company licenses.', 'AP', 'ed3f24d7-92b1-4f80-b4cd-91e251bc0ac9')";
+        assert.equal(outputQueryString, testQueryString);
       });
-      assert.equal(outputQueryString, testQueryString);
     });
   });
 });
