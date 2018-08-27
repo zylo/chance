@@ -10,7 +10,7 @@ const pool = new Pool({
   host: process.env.POSTGRES_HOST || 'localhost',
   database: process.env.POSTGRES_DB || 'zylo_chance',
   password: process.env.POSTGRES_PASSWORD || 'password',
-  port: 54321
+  // port: 54321
 });
 
 function createCharge(appName) {
@@ -42,6 +42,7 @@ function build(numCharges, cb) {
   }
 }
 
+// chargesPerPage: limit 10
 function retrieve(cb) {
   const query = {
     text: 'SELECT * FROM charges'
