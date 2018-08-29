@@ -47,7 +47,7 @@ const pool = new Pool({
   host: 'localhost',
   database: 'zylo_chance',
   password: 'password',
-  port: 54321
+  // port: 54321
 });
 
 const uuidv4 = require('uuid/v4');

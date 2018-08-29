@@ -17,7 +17,6 @@ describe('import-script', () => {
 
     it('should load a charge file with 10 records', () => {
       importScript.loadImportFile(chargeFileName, (err, chargeData) => {
-        // TODO: Evaluate err
         assert.equal(err, null);
         assert.equal(chargeData.length, 10);
       });

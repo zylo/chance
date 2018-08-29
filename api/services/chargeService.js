@@ -10,7 +10,6 @@ const pool = new Pool({
   host: process.env.POSTGRES_HOST || 'localhost',
   database: process.env.POSTGRES_DB || 'zylo_chance',
   password: process.env.POSTGRES_PASSWORD || 'password',
-  // port: 54321
 });
 
 function createCharge(appName) {
@@ -25,7 +24,8 @@ function createCharge(appName) {
   return chargeObj;
 }
 
-function build(numCharges, cb) {
+// Default = 10
+function build(numCharges = 10, cb) {
   const apps = ['Salesforce CRM', 'Adobe Creative Cloud', 'JIRA', 'GitHub', 'Sentry', 'AWS', 'Slack'];
   const charges = [];
   for (let i = 0; i < numCharges; i++) {
@@ -42,7 +42,11 @@ function build(numCharges, cb) {
   }
 }
 
-// chargesPerPage: limit 10
+/**
+ * Retrieves all charges
+ * 
+ * @param {Function < any (callback) >} cb 
+ */
 function retrieve(cb) {
   const query = {
     text: 'SELECT * FROM charges'
@@ -57,8 +61,31 @@ function retrieve(cb) {
     });
 }
 
+/**
+ * Retrieves charge associated with { id }
+ * 
+ * @param {UUID} chargeID 
+ * @param {Function < any (callback) >} cb 
+ */
+function retrieveChargeById(chargeID, cb) {
+  const query = {
+    text: 'SELECT * FROM charges C WHERE C.id = $1',
+    values: [ chargeID ]
+  };
+
+  pool.query(query)
+    .then(queryResult => {
+      cb(null, 'Successfully retrieved charge data', queryResult.rows);
+    })
+    .catch(err => {
+      cb(new Error(`Failed to load charge data, ${err}`));
+    });
+}
+
+
 module.exports = {
   build: build,
   createCharge: createCharge,
-  retrieve: retrieve
+  retrieve: retrieve,
+  retrieveChargeById: retrieveChargeById
 };

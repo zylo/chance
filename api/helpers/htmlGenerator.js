@@ -6,6 +6,10 @@ const htmlHeader =`
 // todo: format type
 // todo: format amount
 
+/**
+ * 
+ * @param {Charge} charge 
+ */
 const fillTemplate = (charge) => {
   const { id, name, amount, date, description, type } = charge;
   const htmlTemplate =`
@@ -21,13 +25,20 @@ const fillTemplate = (charge) => {
   return htmlTemplate;
 };
 
+/**
+ * 
+ * @param {Array <Charge> | Charge} charges 
+ */
 const generateHTML = (charges) => {
   let html = htmlHeader;
-  charges.map(charge => {
-    const chargeHtml = fillTemplate(charge);
-    html += chargeHtml;
-  });
-  return html;
+  if (!(typeof charges === 'array')) return fillTemplate(charge);
+  else {
+    charges.map(charge => {
+      const chargeHtml = fillTemplate(charge);
+      html += chargeHtml;
+    });
+    return html;
+  }
 };
 
 module.exports = {
