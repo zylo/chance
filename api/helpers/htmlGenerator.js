@@ -31,7 +31,10 @@ const fillTemplate = (charge) => {
  */
 const generateHTML = (charges) => {
   let html = htmlHeader;
-  if (!(typeof charges === 'array')) return fillTemplate(charge);
+  if (!(Array.isArray(charges))) {
+    html += fillTemplate(charges);
+    return html;
+  }
   else {
     charges.map(charge => {
       const chargeHtml = fillTemplate(charge);

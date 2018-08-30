@@ -24,7 +24,6 @@ function createCharge(appName) {
   return chargeObj;
 }
 
-// Default = 10
 function build(numCharges = 10, cb) {
   const apps = ['Salesforce CRM', 'Adobe Creative Cloud', 'JIRA', 'GitHub', 'Sentry', 'AWS', 'Slack'];
   const charges = [];
@@ -64,12 +63,12 @@ function retrieve(cb) {
 /**
  * Retrieves charge associated with { id }
  * 
- * @param {UUID} chargeID 
+ * @param {uuid | string} chargeID 
  * @param {Function < any (callback) >} cb 
  */
 function retrieveChargeById(chargeID, cb) {
   const query = {
-    text: 'SELECT * FROM charges C WHERE C.id = $1',
+    text: "SELECT * FROM charges WHERE id = $1",
     values: [ chargeID ]
   };
 

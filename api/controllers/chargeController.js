@@ -22,7 +22,6 @@ function build(req, res) {
 /**
  * Swagger Controller method for GET /charges/retrieve Endpoint
  */
-// TODO: Pagination
 function retrieve(req, res) {
   chargeService.retrieve((err, message, charges) => {
     if (err) {
@@ -34,12 +33,10 @@ function retrieve(req, res) {
 }
 
 /**
- * TODO: Add swagger
- * Swagger Controller method for GET /charges/retrieve/{ID} Endpoint
+ * Swagger Controller method for GET /charges/retrieve/{chargeID} Endpoint
  */
 function retrieveChargeById(req, res) {
-  const { chargeID } = req.params;
-  console.log(chargeID);
+  const chargeID  = req.swagger.params.chargeID.value;
   chargeService.retrieveChargeById(chargeID, (err, message, charge) => {
     if (err) {
       res.status(400).json({ code: 400, message: err.message }).end();
@@ -51,5 +48,6 @@ function retrieveChargeById(req, res) {
 
 module.exports = {
   build: build,
-  retrieve: retrieve
+  retrieve: retrieve,
+  retrieveChargeById: retrieveChargeById
 };

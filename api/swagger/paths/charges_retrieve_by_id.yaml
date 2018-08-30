@@ -1,10 +1,12 @@
 x-swagger-router-controller: chargeController
 get:
+  tags:
+    - chargeController
   description: Retrieves charge by ID from database table charges
   operationId: retrieveChargeById
   parameters:
   - in: "path"
-    name: "id"
+    name: "chargeID"
     required: true
     type: "string"
     description: "Charge id to query"

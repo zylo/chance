@@ -42,12 +42,13 @@ function loadImportFile(fileName) {
   }
 }
 
+// TODO: ABSTRACT OUT
 const pool = new Pool({
   user: 'user',
   host: 'localhost',
   database: 'zylo_chance',
   password: 'password',
-  // port: 54321
+  port: 54321
 });
 
 const uuidv4 = require('uuid/v4');
@@ -85,12 +86,12 @@ function run() {
   // Execute the query 
   pool.query(query)
     .then(queryResult => {
-      console.log(queryResult)
+      logger.log(queryResult)
       // we end the process because of successful insertion
       process.exit(0)
     })
     .catch(err => {
-      console.error('Unexpected Error', err)
+      logger.error('Unexpected Error', err)
       // we end the process because of an error
       process.exit(1)  
     });
@@ -101,7 +102,6 @@ function run() {
  * Uncomment this to be able to execute file
  */
 // run();
-
 
 /**
  * Exposed functions for testing
