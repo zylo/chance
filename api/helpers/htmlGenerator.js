@@ -1,4 +1,5 @@
 const htmlHeader = ' <h1> Charges </h1> ';
+const totalFooter = total => ` <h3> Total: $${total} </h1> `;
 
 // todo: format date
 // todo: format type
@@ -13,7 +14,7 @@ const fillTemplate = (charge) => {
   const {
     id, name, amount, date, description, type
   } = charge;
-  const htmlTemplate = `
+  const chargeHtml = `
     <div style="border:1px solid #000;">
       <h2> Name: ${name} </h2>
       <p> <strong> ID: </strong> ${id} </p>
@@ -22,7 +23,10 @@ const fillTemplate = (charge) => {
       <p> <strong> Description:</strong> ${description} </p>
       <p> <strong> Type:</strong> ${type} </p> 
     </div> <br />`;
-  return htmlTemplate;
+  return {
+    chargeHtml: chargeHtml,
+    amount: amount
+  };
 };
 
 /**
@@ -32,14 +36,21 @@ const fillTemplate = (charge) => {
  */
 const generateHTML = (charges) => {
   let html = htmlHeader;
+  let total = 0;
   if (!(Array.isArray(charges))) {
-    html += fillTemplate(charges);
+    const { chargeHtml, amount } = fillTemplate(charges);
+    html += chargeHtml;
+    total += amount;
   } else {
+    // todo: Get rid of commas
+    // TODO: join or dont return
     html += charges.map((charge) => {
-      const chargeHtml = fillTemplate(charge);
+      const { chargeHtml, amount } = fillTemplate(charge);
+      total += amount;
       return chargeHtml;
-    });
+    }).join('');
   }
+  html += totalFooter(total);
   return html;
 };
 
