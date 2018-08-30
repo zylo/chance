@@ -3,13 +3,13 @@
 const _ = require('lodash');
 const fs = require('fs');
 const moment = require('moment');
-const { Pool } = require('pg')
+const { Pool } = require('pg');
 
 const pool = new Pool({
   user: process.env.POSTGRES_USER || 'user',
   host: process.env.POSTGRES_HOST || 'localhost',
   database: process.env.POSTGRES_DB || 'zylo_chance',
-  password: process.env.POSTGRES_PASSWORD || 'password',
+  password: process.env.POSTGRES_PASSWORD || 'password'
 });
 
 function createCharge(appName) {
@@ -43,8 +43,8 @@ function build(numCharges = 10, cb) {
 
 /**
  * Retrieves all charges
- * 
- * @param {Function < any (callback) >} cb 
+ *
+ * @param {Function < any (callback) >} cb
  */
 function retrieve(cb) {
   const query = {
@@ -52,31 +52,31 @@ function retrieve(cb) {
   };
 
   pool.query(query)
-    .then(queryResult => {
+    .then((queryResult) => {
       cb(null, 'Successfully retrieved charge data', queryResult.rows);
     })
-    .catch(err => {
+    .catch((err) => {
       cb(new Error(`Failed to load charge data, ${err}`));
     });
 }
 
 /**
  * Retrieves charge associated with { id }
- * 
- * @param {uuid | string} chargeID 
- * @param {Function < any (callback) >} cb 
+ *
+ * @param {uuid | string} chargeID
+ * @param {Function < any (callback) >} cb
  */
 function retrieveChargeById(chargeID, cb) {
   const query = {
-    text: "SELECT * FROM charges WHERE id = $1",
-    values: [ chargeID ]
+    text: 'SELECT * FROM charges WHERE id = $1',
+    values: [chargeID]
   };
 
   pool.query(query)
-    .then(queryResult => {
+    .then((queryResult) => {
       cb(null, 'Successfully retrieved charge data', queryResult.rows);
     })
-    .catch(err => {
+    .catch((err) => {
       cb(new Error(`Failed to load charge data, ${err}`));
     });
 }

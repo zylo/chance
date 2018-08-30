@@ -2,7 +2,7 @@
 
 const program = require('commander');
 const fs = require('fs');
-const { Pool } = require('pg')
+const { Pool } = require('pg');
 const format = require('pg-format');
 
 const logger = require('../api/helpers/logger');
@@ -14,8 +14,8 @@ process.on('uncaughtException', (err) => {
 
 /**
  * Loads and parses charge data file
- * 
- * @param {string | null | undefined} fileName 
+ *
+ * @param {string | null | undefined} fileName
  */
 function loadImportFile(fileName) {
   let chargeFile;
@@ -35,7 +35,7 @@ function loadImportFile(fileName) {
   }
   // Loading in the data from the file
   try {
-    const fileData = fs.readFileSync(chargeFile);  
+    const fileData = fs.readFileSync(chargeFile);
     return JSON.parse(fileData);
   } catch (error) {
     return null;
@@ -55,21 +55,22 @@ const uuidv4 = require('uuid/v4');
 
 /**
  * Appends a UUID to each charge
- * 
- * @param {Array<charge>} jsonArray 
+ *
+ * @param {Array<charge>} jsonArray
  */
 function formatData(jsonArray) {
-  const formattedData = jsonArray.map(charge => {
-    charge["id"] = uuidv4(); // appending a UUID to the data
-    return Object.values(charge) // return values as (values, ...) to be consumed by psql
+  const formattedData = jsonArray.map((charge) => {
+    const updatedCharge = charge;
+    updatedCharge.id = uuidv4(); // appending a UUID to the data
+    return Object.values(updatedCharge); // return values as (values, ...) to be consumed by psql
   });
   return formattedData;
 }
 
 /**
- * Generates a query from a set of charge data that include UUIDs 
- * 
- * @param {Array<charge>} formattedData 
+ * Generates a query from a set of charge data that include UUIDs
+ *
+ * @param {Array<charge>} formattedData
  */
 function generateQueryString(formattedData) {
   const query = format('INSERT INTO charges(amount,date,name,description,type,id) Values %L', formattedData);
@@ -83,17 +84,17 @@ function run() {
   const fileData = loadImportFile();
   const formattedData = formatData(fileData);
   const query = generateQueryString(formattedData);
-  // Execute the query 
+  // Execute the query
   pool.query(query)
-    .then(queryResult => {
-      logger.log(queryResult)
+    .then((queryResult) => {
+      logger.log(queryResult);
       // we end the process because of successful insertion
-      process.exit(0)
+      process.exit(0);
     })
-    .catch(err => {
-      logger.error('Unexpected Error', err)
+    .catch((err) => {
+      logger.error('Unexpected Error', err);
       // we end the process because of an error
-      process.exit(1)  
+      process.exit(1);
     });
 }
 

@@ -1,18 +1,19 @@
-const htmlHeader =`
-  <h1> Charges </h1>
-`;
+const htmlHeader = ' <h1> Charges </h1> ';
 
 // todo: format date
 // todo: format type
 // todo: format amount
 
 /**
- * 
- * @param {Charge} charge 
+ * Takes in a charge and returns the template filled with charge data
+ *
+ * @param { Charge } charge
  */
 const fillTemplate = (charge) => {
-  const { id, name, amount, date, description, type } = charge;
-  const htmlTemplate =`
+  const {
+    id, name, amount, date, description, type
+  } = charge;
+  const htmlTemplate = `
     <div style="border:1px solid #000;">
       <h2> Name: ${name} </h2>
       <p> <strong> ID: </strong> ${id} </p>
@@ -20,30 +21,28 @@ const fillTemplate = (charge) => {
       <p> <strong> Amount:</strong> ${amount} </p>
       <p> <strong> Description:</strong> ${description} </p>
       <p> <strong> Type:</strong> ${type} </p> 
-    </div> <br />
-  `;
+    </div> <br />`;
   return htmlTemplate;
 };
 
 /**
- * 
- * @param {Array <Charge> | Charge} charges 
+ * Returns a basic HTML body including the header and a list of charges
+ *
+ * @param {Array <Charge> | Charge} charges
  */
 const generateHTML = (charges) => {
   let html = htmlHeader;
   if (!(Array.isArray(charges))) {
     html += fillTemplate(charges);
-    return html;
-  }
-  else {
-    charges.map(charge => {
+  } else {
+    html += charges.map((charge) => {
       const chargeHtml = fillTemplate(charge);
-      html += chargeHtml;
+      return chargeHtml;
     });
-    return html;
   }
+  return html;
 };
 
 module.exports = {
-    generateHTML: generateHTML
+  generateHTML: generateHTML
 };

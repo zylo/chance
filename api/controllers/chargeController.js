@@ -14,7 +14,7 @@ function build(req, res) {
     if (err) {
       res.status(400).json({ code: 400, message: err.message }).end();
     } else {
-      res.status(200).json({code: 200, message: message }).end();
+      res.status(200).json({ code: 200, message: message }).end();
     }
   });
 }
@@ -27,7 +27,7 @@ function retrieve(req, res) {
     if (err) {
       res.status(400).json({ code: 400, message: err.message }).end();
     } else {
-        res.send(htmlHelper.generateHTML(charges)).end();
+      res.send(htmlHelper.generateHTML(charges)).end();
     }
   });
 }
@@ -36,12 +36,12 @@ function retrieve(req, res) {
  * Swagger Controller method for GET /charges/retrieve/{chargeID} Endpoint
  */
 function retrieveChargeById(req, res) {
-  const chargeID  = req.swagger.params.chargeID.value;
+  const chargeID = req.swagger.params.chargeID.value;
   chargeService.retrieveChargeById(chargeID, (err, message, charge) => {
     if (err) {
       res.status(400).json({ code: 400, message: err.message }).end();
     } else {
-        res.send(htmlHelper.generateHTML(charge)).end();
+      res.send(htmlHelper.generateHTML(charge)).end();
     }
   });
 }
