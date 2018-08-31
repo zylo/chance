@@ -102,7 +102,7 @@ function run() {
  * Commented out for testing
  * Uncomment this to be able to execute file
  */
-run();
+// run();
 
 /**
  * Exposed functions for testing
