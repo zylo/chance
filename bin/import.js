@@ -42,7 +42,6 @@ function loadImportFile(fileName) {
   }
 }
 
-// TODO: ABSTRACT OUT
 const pool = new Pool({
   user: 'user',
   host: 'localhost',
@@ -54,7 +53,8 @@ const pool = new Pool({
 const uuidv4 = require('uuid/v4');
 
 /**
- * Appends a UUID to each charge
+ * Appends a UUID to each charge:
+ * Bug in node-postgres, omitting UUID threw exception
  *
  * @param {Array<charge>} jsonArray
  */
@@ -87,7 +87,7 @@ function run() {
   // Execute the query
   pool.query(query)
     .then((queryResult) => {
-      logger.log(queryResult);
+      logger.info(queryResult);
       // we end the process because of successful insertion
       process.exit(0);
     })
@@ -102,7 +102,7 @@ function run() {
  * Commented out for testing
  * Uncomment this to be able to execute file
  */
-// run();
+run();
 
 /**
  * Exposed functions for testing

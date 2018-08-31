@@ -1,9 +1,22 @@
+// Header for HTML output
 const htmlHeader = ' <h1> Charges </h1> ';
+
+// Footer for HTML output including charge totals
 const totalFooter = total => ` <h3> Total: $${total} </h1> `;
 
-// todo: format date
-// todo: format type
-// todo: format amount
+const moment = require('moment');
+
+/**
+ * Formats the date into a better readable format
+ * @param {Date} date
+ */
+const formatDate = date => moment(date).format('MMM DD h:mm A');
+
+/**
+ * Formats the number into currency
+ * @param {number} amount
+ */
+const formatAmount = amount => `$${amount.toFixed(2)}`;
 
 /**
  * Takes in a charge and returns the template filled with charge data
@@ -14,12 +27,14 @@ const fillTemplate = (charge) => {
   const {
     id, name, amount, date, description, type
   } = charge;
+  const formattedDate = formatDate(date);
+  const formattedAmount = formatAmount(amount);
   const chargeHtml = `
     <div style="border:1px solid #000;">
       <h2> Name: ${name} </h2>
       <p> <strong> ID: </strong> ${id} </p>
-      <p> <strong> Charge Date:</strong> ${date} </p>
-      <p> <strong> Amount:</strong> ${amount} </p>
+      <p> <strong> Charge Date:</strong> ${formattedDate} </p>
+      <p> <strong> Amount:</strong> ${formattedAmount} </p>
       <p> <strong> Description:</strong> ${description} </p>
       <p> <strong> Type:</strong> ${type} </p> 
     </div> <br />`;
@@ -42,8 +57,6 @@ const generateHTML = (charges) => {
     html += chargeHtml;
     total += amount;
   } else {
-    // todo: Get rid of commas
-    // TODO: join or dont return
     html += charges.map((charge) => {
       const { chargeHtml, amount } = fillTemplate(charge);
       total += amount;

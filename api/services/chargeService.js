@@ -3,13 +3,14 @@
 const _ = require('lodash');
 const fs = require('fs');
 const moment = require('moment');
+
 const { Pool } = require('pg');
 
 const pool = new Pool({
   user: process.env.POSTGRES_USER || 'user',
   host: process.env.POSTGRES_HOST || 'localhost',
-  database: process.env.POSTGRES_DB || 'zylo_chance',
-  password: process.env.POSTGRES_PASSWORD || 'password'
+  password: process.env.POSTGRES_PASSWORD || 'password',
+  database: process.env.POSTGRES_DB || 'zylo_chance'
 });
 
 function createCharge(appName) {

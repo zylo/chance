@@ -8,13 +8,6 @@ const uuidv4 = require('uuid/v4');
 describe('import-script', () => {
   const chargeFileName = 'temp/charges.json';
   describe('loadImportFile', () => {
-    // TODO: fail here without parameter and command line  bug
-    // it('should fail if filename is not present', () => {
-    //   importScript.loadImportFile(null, (err) => {
-    //     assert.equal(err, 'Error: Failed to load charge file.');
-    //   });
-    // });
-
     it('should load a charge file with 10 records', () => {
       importScript.loadImportFile(chargeFileName, (err, chargeData) => {
         assert.equal(err, null);
