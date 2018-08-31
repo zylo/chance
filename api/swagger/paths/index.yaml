@@ -1,2 +1,8 @@
 /charges/build:
   $ref: ./charges_build.yaml
+
+/charges/retrieve:
+  $ref: ./charges_retrieve.yaml
+
+/charges/retrieve/{chargeID}:
+  $ref: ./charges_retrieve_by_id.yaml

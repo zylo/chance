@@ -1,18 +1,14 @@
 x-swagger-router-controller: chargeController
 get:
-  description: Builds sample charge file for import
-  operationId: build
-  parameters:
-  - in: "query"
-    name: "numCharges"
-    required: false
-    type: "integer"
-    description: "Number of charges to build"
+  description: Retrieves charge data from database table charges
+  operationId: retrieve
   responses:
     '200':
       description: Success
       schema:
-        $ref: '#/definitions/SuccessResponse'
+        type: array
+        items:
+          $ref: '#/definitions/Charge'
     '400':
       description: Bad Request
       schema:
