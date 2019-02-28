@@ -23,7 +23,7 @@ We have created the basics on this API project to provide a starting point for o
    info: ===== Chance api has started on port: 4000 
    info: ===== forwarded http://localhost:8080
    ```
-   This could take up to a minute, we are install Postgres and Node, after all ;-) .
+   This could take up to a minute, we are installing Postgres and Node, after all ;-) .
 5. Navigate to [http://localhost:8080](http://localhost:8080). It should say: `Hello, you!`. 
 
 You're ready to code!
