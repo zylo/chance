@@ -13,6 +13,9 @@
     "ready": "node bin/wait.js",
     "test": "istanbul test node_modules/mocha/bin/_mocha"
   },
+  "bin": {
+    "db-init-chance": "./bin/dbInit.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zylo/chance.git"
