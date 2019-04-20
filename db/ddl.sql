@@ -9,12 +9,3 @@ CREATE TABLE IF NOT EXISTS projects (
 
 INSERT INTO projects(name)
 SELECT 'chance';
-
-CREATE TABLE IF NOT EXISTS charges (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
-    amount numeric NOT NULL,
-    name varchar(128) NOT NULL,
-    description varchar(250),
-    type varchar(64),
-    created_at timestamp with time zone DEFAULT now()
-);

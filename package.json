@@ -11,11 +11,10 @@
     "pretest": "npm run ready && npm run mergeSwagger",
     "lint": "eslint . --ext .js || true",
     "ready": "node bin/wait.js",
-    "test": "istanbul test node_modules/mocha/bin/_mocha"
+    "test": "istanbul test node_modules/mocha/bin/_mocha",
+    "db:migrate": "knex migrate:latest"
   },
-  "bin": {
-    "db-init-chance": "./bin/dbInit.js"
-  },
+  "bin": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zylo/chance.git"

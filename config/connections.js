@@ -8,7 +8,10 @@ module.exports = {
       database: 'test'
     },
     pool: { min: 2, max: 10 },
-    migrations: { tableName: 'knex_migrations' }
+    migrations: {
+      directory: 'db/migrations',
+      tableName: 'knex_migrations'
+    }
   },
   postgres: {
     client: 'pg',
@@ -19,14 +22,20 @@ module.exports = {
       database: process.env.POSTGRES_DB
     },
     pool: { min: 2, max: 10 },
-    migrations: { tableName: 'knex_migrations' }
+    migrations: {
+      directory: 'db/migrations',
+      tableName: 'knex_migrations'
+    }
   },
   sqlite3: {
     client: 'sqlite3',
     connection: {
       filename: './test/storage/test.sqlite'
     },
-    migrations: { tableName: 'knex_migrations' }
+    migrations: {
+      directory: 'db/migrations',
+      tableName: 'knex_migrations'
+    }
   }
 };
 
