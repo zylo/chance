@@ -2,13 +2,21 @@
 
 const logger = require('./api/helpers/logger');
 const middleware = require('./middleware');
+const fs = require('fs');
 
 const swaggerParser = require('swagger-parser');
 const express = require('express');
 
 const app = express();
 const port = '4000';
-process.env.NODE_ENV = 'development';
+
+fs.mkdir('./temp', (err) => {
+  if (!err || (err && err.code === 'EEXIST')) {
+    return;
+  }
+
+  logger.error(`Unable to create build directory: ${err}`);
+});
 
 middleware.beforeSwagger(app);
 
