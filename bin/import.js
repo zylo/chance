@@ -4,7 +4,7 @@ const fs = require('fs');
 const JSONStream = require('JSONStream');
 const program = require('commander');
 const logger = require('../api/helpers/logger');
-const { ChargeImporter } = require('../api/helpers/chargeImporter');
+const { ChargeDAO } = require('../api/daos/chargeDao');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 program
@@ -19,39 +19,45 @@ process.on('uncaughtException', (err) => {
 
 const SAVE_BATCH_SIZE = 5000;
 
+const getJSONFileParser = (filename) => {
+  const stream = fs.createReadStream(filename, { encoding: 'utf8' });
+  const parser = JSONStream.parse('*');
+
+  stream.pipe(parser);
+
+  return parser;
+};
+
 const importFile = (filename) => {
   if (!filename) {
     throw new Error('filename is required!');
   }
 
-  const importer = new ChargeImporter();
+  const startTime = process.hrtime();
+  const chargeDao = new ChargeDAO();
 
   logger.info(`Importing charges from ${filename}...`);
 
-  const stream = fs.createReadStream(filename, { encoding: 'utf8' });
-  const parser = JSONStream.parse('*');
-
-  stream.pipe(parser);
-  const hrstart = process.hrtime();
-
-  const savesToResolve = []; // TODO: This could be a problem for insanely large files.
+  // TODO: Find a better way to ensure all saves have completed.  This could be a problem for insanely large files.
+  const savesToResolve = [];
   let chargesToSave = [];
 
-  parser.on('data', (charge) => {
+  getJSONFileParser(filename).on('data', (charge) => {
     chargesToSave.push(charge);
+
     if (chargesToSave.length >= SAVE_BATCH_SIZE) {
-      savesToResolve.push(importer.saveCharge(chargesToSave));
+      savesToResolve.push(chargeDao.save(chargesToSave));
       chargesToSave = [];
     }
   }).on('end', () => {
     if (chargesToSave.length > 0) {
-      savesToResolve.push(importer.saveCharge(chargesToSave));
+      savesToResolve.push(chargeDao.save(chargesToSave));
       chargesToSave = [];
     }
     Promise.all(savesToResolve).finally(() => {
-      const hrend = process.hrtime(hrstart);
-      logger.info(`Imported ${importer.chargesSaved} charges, with ${importer.chargesFailed} failures.`);
-      logger.info(`Runtime: ${hrend[0]}s ${hrend[1] / 1000000}ms`);
+      const endTime = process.hrtime(startTime);
+      logger.info(`Imported ${chargeDao.chargesSaved} charges, with ${chargeDao.chargesFailed} failures.`);
+      logger.info(`Runtime: ${endTime[0]}s ${endTime[1] / 1000000}ms`);
       process.exit(0);
     });
   });

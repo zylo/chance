@@ -1,0 +1,47 @@
+x-swagger-router-controller: chargeController
+get:
+  description: Aggregates charge data by name
+  operationId: groupByName
+  responses:
+    '200':
+      description: Success
+      schema:
+        required:
+          - data
+        properties:
+          code:
+            type: integer
+          data:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                type:
+                  type: string
+                total_charges:
+                  type: integer
+                total_cost:
+                  type: number
+                  format: double
+        example:
+          code: 200
+          data:
+            - name: 'AWS'
+              type: 'AP'
+              total_charges: 1337
+              total_cost: 298142.95
+            - name: 'Salesforce'
+              type: 'AP'
+              total_charges: 1701
+              total_cost: 50430.99
+
+    '500':
+      description: Forbidden
+      schema:
+        $ref: '#/definitions/ErrorResponse'
+    default:
+      description: Error
+      schema:
+        $ref: '#/definitions/ErrorResponse'

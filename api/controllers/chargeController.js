@@ -17,6 +17,17 @@ function build(req, res) {
   });
 }
 
+function groupByName(req, res) {
+  chargeService.groupByName((err, data) => {
+    if (err) {
+      res.status(500).json({ code: 200, message: err.message });
+    } else {
+      res.status(500).json({ code: 200, data: data });
+    }
+  });
+}
+
 module.exports = {
-  build: build
+  build: build,
+  groupByName: groupByName
 };

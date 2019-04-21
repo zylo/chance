@@ -1,2 +1,5 @@
+/charges:
+  $ref: ./charges_groupByName.yaml
 /charges/build:
   $ref: ./charges_build.yaml
+

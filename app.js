@@ -15,7 +15,7 @@ fs.mkdir('./temp', (err) => {
     return;
   }
 
-  logger.error(`Unable to create build directory: ${err}`);
+  logger.error(`Unable to create temp directory: ${err}`);
 });
 
 middleware.beforeSwagger(app);

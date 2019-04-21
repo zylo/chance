@@ -3,6 +3,11 @@
 const _ = require('lodash');
 const fs = require('fs');
 const moment = require('moment');
+const logger = require('../helpers/logger');
+
+const { ChargeDAO } = require('../daos/chargeDao');
+
+const chargeDao = new ChargeDAO();
 
 function createCharge(appName) {
   const chargeObj = {
@@ -33,7 +38,15 @@ function build(numCharges, cb) {
   }
 }
 
+function groupByName(callback = () => {}) {
+  return chargeDao
+    .findGroupedByName()
+    .then(data => callback(null, data))
+    .catch(err => callback(err));
+}
+
 module.exports = {
   build: build,
-  createCharge: createCharge
+  createCharge: createCharge,
+  groupByName: groupByName
 };
