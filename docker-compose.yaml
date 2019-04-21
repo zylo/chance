@@ -31,7 +31,6 @@ services:
       - /bin/sh
       - -c
       - |
-          npm install knex -g
           npm install
           npm run prestart
           npm start
