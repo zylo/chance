@@ -10,8 +10,9 @@ class ChargeDAO {
   }
 
   save(charges) {
-    return this.db('charges')
-      .insert(charges)
+    const toSave = Array.isArray(charges) ? charges : Array(charges);
+    return this.db
+      .batchInsert('charges', toSave)
       .then(() => { this.chargesSaved += charges.length; })
       .catch((error) => {
         logger.error(error);
