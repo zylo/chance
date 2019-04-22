@@ -22,15 +22,17 @@ class ChargesFileReader extends EventEmitter {
   }
 
   read(batchSize = DEFAULT_BATCH_SIZE) {
+    const batchCount = batchSize <= 0 ? DEFAULT_BATCH_SIZE : batchSize;
+
     this.parser.on('data', (charge) => {
       this.charges.push(charge);
 
-      if (this.charges.length >= batchSize) {
+      if (this.charges.length >= batchCount) {
         this.emit('data', this.charges);
         this.charges = [];
       }
     }).on('end', () => {
-      if (this.charges.length !== 0) {
+      if (this.charges.length > 0) {
         this.emit('data', this.charges);
       }
       this.emit('end');

@@ -1,10 +1,10 @@
 const knex = require('knex');
-const { defaultConnection } = require('../../config/config');
+const knexfile = require('../../knexfile');
 const logger = require('../helpers/logger');
 
 class ChargeDAO {
   constructor() {
-    this.db = knex(defaultConnection);
+    this.db = knex(knexfile[process.env.NODE_ENV]);
     this.chargesSaved = 0;
     this.chargesFailed = 0;
   }

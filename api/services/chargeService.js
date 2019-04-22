@@ -3,7 +3,6 @@
 const _ = require('lodash');
 const fs = require('fs');
 const moment = require('moment');
-const logger = require('../helpers/logger');
 
 const { ChargeDAO } = require('../daos/chargeDao');
 
